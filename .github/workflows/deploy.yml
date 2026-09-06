@@ -29,8 +29,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
       # Until the custom domain is live the site is served under
-      # https://mkzer0.github.io/recursive-loop, so root-relative URLs need
-      # that prefix. Set the repository variable PAGES_BASE to /recursive-loop
+      # https://mkzer0.github.io/rloop-au, so root-relative URLs need
+      # that prefix. Set the repository variable PAGES_BASE to /rloop-au
       # for the preview stage and delete it once www.recursiveloop.com.au is
       # configured as the custom domain.
       - name: Prefix root-relative URLs for sub-path preview
