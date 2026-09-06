@@ -7,4 +7,6 @@ export default defineConfig({
   trailingSlash: 'never',
   build: { format: 'file' },
   integrations: [sitemap()],
+  // Old Squarespace URL for the home page.
+  redirects: { '/home': '/' },
 });
