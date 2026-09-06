@@ -9,7 +9,7 @@ export const site = {
   /** Formspree form id. Create a form at https://formspree.io and paste its id here. */
   formspreeId: 'mppzjpnw',
   /** Buttondown username. Create a newsletter at https://buttondown.com and paste the username here. */
-  buttondownUser: 'YOUR_BUTTONDOWN_USERNAME',
+  buttondownUser: 'mfagan',
   eventbrite: 'https://www.eventbrite.com.au/o/reagile-by-recursive-loop-40688851063',
   social: {
     linkedin: 'https://www.linkedin.com/in/michael-fagan-a6a38784/',
