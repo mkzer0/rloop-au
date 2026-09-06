@@ -47,7 +47,7 @@ The listing, RSS feed (`/insights/rss.xml`) and sitemap update automatically on 
 
 ## One-time setup after cloning
 
-1. **Contact form.** Create a form at [formspree.io](https://formspree.io), copy its id and set `formspreeId` in `src/site.ts`. Submissions go to the email on the Formspree account. Successful submissions redirect to `/thanks`.
+1. **Contact form.** Create a form at [formspree.io](https://formspree.io), copy its id and set `formspreeId` in `src/site.ts`. Submissions go to the email set on the Formspree form. The page submits in the background and shows the thank-you message in place; with JavaScript off it falls back to a normal post.
 2. **Newsletter.** Create a newsletter at [buttondown.com](https://buttondown.com), then set `buttondownUser` in `src/site.ts` to the Buttondown username. Import the subscriber list exported from Squarespace.
 3. **GitHub Pages.** The repository is `rloop-au/rloop-au.github.io`, so it serves at https://rloop-au.github.io. Settings → Pages → Source: *GitHub Actions*. Every push to `main` builds and deploys via `.github/workflows/deploy.yml`.
 4. **Custom domain.** Settings → Pages → Custom domain: `www.recursiveloop.com.au` (matches `public/CNAME`). Then at the DNS host for recursiveloop.com.au:

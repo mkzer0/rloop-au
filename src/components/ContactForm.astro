@@ -2,7 +2,6 @@
 import { site } from '../site';
 const configured = site.formspreeId && !site.formspreeId.startsWith('YOUR_');
 const action = `https://formspree.io/f/${site.formspreeId}`;
-const next = `${site.url}/thanks`;
 const subject = encodeURIComponent('Book a Chat');
 ---
 {!configured && (
@@ -12,43 +11,97 @@ const subject = encodeURIComponent('Book a Chat');
     <p class="muted">Tell us your name, what you’d like to talk about, and whether it’s coaching, training or facilitation.</p>
   </div>
 )}
-<form class="contact" action={action} method="post" hidden={!configured}>
-  <input type="hidden" name="_subject" value="Book a Chat enquiry from recursiveloop.com.au" />
-  <input type="hidden" name="_next" value={next} />
-  <label class="hp" aria-hidden="true">Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
 
-  <div class="field">
-    <label for="c-name">Name <span class="req">(required)</span></label>
-    <input id="c-name" type="text" name="name" required autocomplete="name" />
-  </div>
-  <div class="field">
-    <label for="c-email">Email <span class="req">(required)</span></label>
-    <input id="c-email" type="email" name="email" required autocomplete="email" />
-  </div>
-  <div class="field inline">
-    <input id="c-news" type="checkbox" name="newsletter" value="yes" />
-    <label for="c-news">Sign up for news and updates</label>
-  </div>
-  <div class="field">
-    <label for="c-subject">Subject <span class="req">(required)</span></label>
-    <input id="c-subject" type="text" name="subject" required />
-  </div>
-  <fieldset class="field">
-    <legend class="label">Services</legend>
-    <div class="checks">
-      <label><input type="checkbox" name="services" value="Coaching" /> Coaching</label>
-      <label><input type="checkbox" name="services" value="Training" /> Training</label>
-      <label><input type="checkbox" name="services" value="Facilitation" /> Facilitation</label>
+<div class="contact-wrap" hidden={!configured}>
+  <form class="contact" action={action} method="post">
+    <input type="hidden" name="_subject" value="Book a Chat enquiry from recursiveloop.com.au" />
+    <label class="hp" aria-hidden="true">Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+
+    <div class="field">
+      <label for="c-name">Name <span class="req">(required)</span></label>
+      <input id="c-name" type="text" name="name" required autocomplete="name" />
     </div>
-  </fieldset>
-  <div class="field">
-    <label for="c-message">Message <span class="req">(required)</span></label>
-    <textarea id="c-message" name="message" required></textarea>
+    <div class="field">
+      <label for="c-email">Email <span class="req">(required)</span></label>
+      <input id="c-email" type="email" name="email" required autocomplete="email" />
+    </div>
+    <div class="field inline">
+      <input id="c-news" type="checkbox" name="newsletter" value="yes" />
+      <label for="c-news">Sign up for news and updates</label>
+    </div>
+    <div class="field">
+      <label for="c-subject">Subject <span class="req">(required)</span></label>
+      <input id="c-subject" type="text" name="subject" required />
+    </div>
+    <fieldset class="field">
+      <legend class="label">Services</legend>
+      <div class="checks">
+        <label><input type="checkbox" name="services" value="Coaching" /> Coaching</label>
+        <label><input type="checkbox" name="services" value="Training" /> Training</label>
+        <label><input type="checkbox" name="services" value="Facilitation" /> Facilitation</label>
+      </div>
+    </fieldset>
+    <div class="field">
+      <label for="c-message">Message <span class="req">(required)</span></label>
+      <textarea id="c-message" name="message" required></textarea>
+    </div>
+    <p class="form-error" role="alert" hidden></p>
+    <button class="btn" type="submit">Submit</button>
+  </form>
+
+  <div class="contact-thanks" role="status" aria-live="polite" hidden>
+    <h2>Thank you!</h2>
+    <p class="lede">Thank you for your interest! We’ll respond to your message within 3 business days.</p>
+    <p>Warm Regards,<br />The Recursive Loop Team</p>
   </div>
-  <button class="btn" type="submit">Submit</button>
-</form>
+</div>
 
 <style>
   fieldset { border: 0; padding: 0; margin: 0 0 1.1em; }
   legend { padding: 0; margin-bottom: .35em; }
+  .form-error { color: var(--accent); font-size: .95rem; margin: 0 0 1em; }
+  .contact-thanks { border-top: 3px solid var(--accent); padding-top: 1.2em; }
+  .contact-thanks h2 { font-size: 1.8rem; }
+  .btn[disabled] { opacity: .6; cursor: progress; }
 </style>
+
+<script>
+  // Submit to Formspree in the background and show the thank-you in place.
+  // Without JavaScript the form still posts normally and lands on Formspree's page.
+  const wrap = document.querySelector<HTMLElement>('.contact-wrap');
+  const form = wrap?.querySelector<HTMLFormElement>('form.contact');
+  const thanks = wrap?.querySelector<HTMLElement>('.contact-thanks');
+  const error = form?.querySelector<HTMLElement>('.form-error');
+  const button = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    error!.hidden = true;
+    button!.disabled = true;
+    button!.textContent = 'Sending…';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.errors?.map((e: { message: string }) => e.message).join(' ') || `Request failed (${res.status})`);
+      }
+      form.hidden = true;
+      thanks!.hidden = false;
+      thanks!.scrollIntoView({ block: 'nearest' });
+      (window as any).gtag?.('event', 'generate_lead', { form: 'book_a_chat' });
+    } catch (err) {
+      const reason = err instanceof Error && err.message ? ` ${err.message.replace(/\.?$/, '.')}` : '';
+      const address = document.querySelector<HTMLAnchorElement>('a[href^="mailto:"]')?.textContent ?? 'the address in the footer';
+      error!.textContent = `Sorry, your message could not be sent.${reason} You can email us instead at ${address}.`;
+      error!.hidden = false;
+    } finally {
+      button!.disabled = false;
+      button!.textContent = 'Submit';
+    }
+  });
+</script>
