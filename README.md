@@ -56,6 +56,10 @@ The listing, RSS feed (`/insights/rss.xml`) and sitemap update automatically on 
    - leave MX and TXT records unchanged.
    Once the certificate is issued, tick *Enforce HTTPS*.
 
+## Google Search Console
+
+The property https://www.recursiveloop.com.au/ is verified by the file `public/google53238dc17eae8743.html`. Do not delete it. The sitemap `sitemap-index.xml` is submitted and rebuilds on every deploy.
+
 ## Migration notes
 
 - `crawl/` holds the inventory of the old Squarespace site, the original sitemap, the blog export and the image URL map. `scripts/` holds the one-off download and conversion scripts used to build this repository. Neither is used by the build.
