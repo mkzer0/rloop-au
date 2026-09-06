@@ -1,0 +1,22 @@
+---
+import { site } from '../site';
+const action = `https://buttondown.com/api/emails/embed-subscribe/${site.buttondownUser}`;
+---
+<form class="newsletter" action={action} method="post" target="_blank">
+  <div class="grid-2">
+    <div class="field">
+      <label for="nl-first">First Name</label>
+      <input id="nl-first" type="text" name="metadata__first_name" autocomplete="given-name" />
+    </div>
+    <div class="field">
+      <label for="nl-last">Last Name</label>
+      <input id="nl-last" type="text" name="metadata__last_name" autocomplete="family-name" />
+    </div>
+  </div>
+  <div class="field">
+    <label for="nl-email">Email Address <span class="req">(required)</span></label>
+    <input id="nl-email" type="email" name="email" required autocomplete="email" />
+  </div>
+  <input type="hidden" name="tag" value="re-agile-news" />
+  <button class="btn" type="submit">Sign Up</button>
+</form>

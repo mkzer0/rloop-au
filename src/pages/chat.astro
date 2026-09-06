@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site } from '../site';
+---
+<Base title="Book a Chat" description="Get in touch with Recursive Loop about coaching, training or facilitation. We respond within three business days.">
+  <section class="band">
+    <div class="wrap"><h1>Let’s Chat!</h1></div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid">
+      <div>
+        <p class="lede">Tell us a little about what you’re working on and we’ll respond within three business days.</p>
+        <p>Prefer email? Write to <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+        <p class="muted">{site.location}</p>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+</style>

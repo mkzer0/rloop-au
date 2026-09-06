@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('insights')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const fmt = (d: Date) => d.toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Australia/Adelaide' });
+---
+<Base title="Insights" description="Writing on agile delivery, measurement, decision-making and better ways of building software, by Michael Fagan.">
+  <section class="band">
+    <div class="wrap"><h1>Insights</h1></div>
+  </section>
+
+  <section class="section">
+    <div class="wrap cards">
+      {posts.map((p) => (
+        <article class="card">
+          <a class="img" href={`/insights/${p.id}`} aria-hidden="true" tabindex="-1">
+            <img src={p.data.image} alt="" loading="lazy" />
+          </a>
+          <p class="meta">{p.data.author} · <time datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time></p>
+          <h3><a href={`/insights/${p.id}`}>{p.data.title}</a></h3>
+          <p>{p.data.description}</p>
+          <a class="more" href={`/insights/${p.id}`}>Read more</a>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>

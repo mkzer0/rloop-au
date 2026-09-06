@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import { courses } from '../data/courses';
+import { site, mailto } from '../site';
+
+/** Render **bold lead-ins** in concept bullets. */
+const bold = (s: string) => s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+---
+<Base title="Classes" description="Accredited agile training: ICAgile Agile Team Facilitation, Agile Software Development, Fundamentals of Agile, and Scrum Alliance CSM, CSPO and Scrum Foundations.">
+  <section class="band">
+    <div class="wrap">
+      <h1>Our Classes</h1>
+      <p>Public classes are listed on <a href={site.eventbrite}>Eventbrite</a>. Private and on-site classes are available on request.</p>
+    </div>
+  </section>
+
+  {courses.map((c, i) => (
+    <section class="section course" id={c.id}>
+      <div class:list={['wrap', 'row', { flip: i % 2 === 1 }]}>
+        <img src={c.image} alt="" loading="lazy" />
+        <div>
+          <h2>{c.title}{c.code && <span class="code"> ({c.code})</span>}</h2>
+          <p>{c.intro}</p>
+          <details class="acc">
+            <summary>Course details</summary>
+            <div class="acc-body">
+              {c.details.map((p) => <p>{p}</p>)}
+              {c.concepts && (
+                <>
+                  <p><strong>{c.concepts.heading ?? 'Course Concepts:'}</strong></p>
+                  <ul>{c.concepts.items.map((it) => <li set:html={bold(it)} />)}</ul>
+                </>
+              )}
+              {c.included && (
+                <>
+                  <p><strong>What’s Included:</strong></p>
+                  <ul>{c.included.map((it) => <li>{it}</li>)}</ul>
+                </>
+              )}
+              {c.certification && (<><p><strong>Certification:</strong></p><p>{c.certification}</p></>)}
+              {c.whoShouldAttend && (<><p><strong>Who Should Attend:</strong></p><p>{c.whoShouldAttend}</p></>)}
+              {c.readMore && <p><a href={c.readMore.href}>{c.readMore.label}</a></p>}
+              <p><strong>Location:</strong> {c.location}</p>
+            </div>
+          </details>
+          <a class="btn" href={mailto(c.enquirySubject)}>Enquire now</a>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="section light">
+    <div class="wrap center">
+      <h2>Not sure which class is for you?</h2>
+      <p class="lede">Speak with Michael to discuss a custom class or if you have any questions.</p>
+      <a class="btn" href={mailto('Class enquiry')}>Let’s talk</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .course + .course { border-top: 1px solid var(--line); }
+  .course h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); }
+  .code { color: var(--muted); font-weight: 400; }
+  .course .row { align-items: start; }
+  .band a { color: inherit; }
+</style>

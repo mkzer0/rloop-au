@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import { offerings } from '../data/coaching';
+import { mailto } from '../site';
+---
+<Base title="Coaching" description="Agile coaching for realising DevOps, scaling Scrum, team-level Scrum and adaptable software architecture.">
+  <section class="band">
+    <div class="wrap"><h1>Coaching</h1></div>
+  </section>
+
+  {offerings.map((o, i) => (
+    <section class="section offering" id={o.id}>
+      <div class:list={['wrap', 'row', { flip: i % 2 === 1 }]}>
+        <img src={o.image} alt="" loading="lazy" />
+        <div>
+          <h2>{o.title}</h2>
+          {o.paragraphs.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="section light">
+    <div class="wrap center">
+      <h2>Not sure which approach is for you?</h2>
+      <p class="lede">Speak with Michael to discuss your needs or if you have any questions.</p>
+      <a class="btn" href={mailto('Coaching enquiry')}>Let’s talk</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .offering + .offering { border-top: 1px solid var(--line); }
+</style>

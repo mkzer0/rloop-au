@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+const clients = [
+  { name: 'Government of South Australia', logo: '/images/QSA0YC-sa-gov-logo-300x300.jpg' },
+  { name: 'SA Power Networks', logo: '/images/8EB93O-sa-powernetworks-logo-300x300.jpg' },
+  { name: 'The University of Adelaide', logo: '/images/C9O8I2-uofabw.png' },
+  { name: 'Cuscal', logo: '/images/6c914c-screenshot-2023-01-05-at-9.49.22-am.png' },
+];
+---
+<Base title="About" description="Our mission is to guide organisations through digital disruption with custom-authored accredited agile training and professional agile coaching.">
+  <section class="band">
+    <div class="wrap"><h1>About Us</h1></div>
+  </section>
+
+  <section class="section">
+    <div class="wrap row">
+      <div>
+        <p class="lede">Digital disruption is an ever-advancing tide washing over all areas of modern life, we’re here to help you unleash astounding new value.</p>
+        <p>Emblematic of this new normal is the many nimble start-ups unencumbered by tradition to innovate while organisations struggle to adapt.</p>
+        <p>Our mission is to guide organisations through this transition by offering custom-authored accredited agile training and professional agile coaching across all disciplines involved in product development. We do this by partnering with the most respected accreditation bodies in the agile community and bringing our hard-earned knowledge of agile transitions into the classroom.</p>
+      </div>
+      <img src="/images/45342e-recurvise-loop-gen-7-web-res.jpg" alt="" loading="lazy" />
+    </div>
+  </section>
+
+  <section class="section light">
+    <div class="wrap">
+      <h2 class="center">Recursive Loop have worked with:</h2>
+      <div class="logos">
+        {clients.map((c) => (
+          <figure>
+            <img src={c.logo} alt={`${c.name} logo`} loading="lazy" />
+            <figcaption>{c.name}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap row">
+      <img src="/images/30342e-recurvise-loop-gen-5-web-res.jpg" alt="" loading="lazy" />
+      <blockquote class="quote">
+        “Tell me and I forget, teach me and I may remember, involve me and I learn.”
+        <cite>— Benjamin Franklin</cite>
+      </blockquote>
+    </div>
+  </section>
+</Base>

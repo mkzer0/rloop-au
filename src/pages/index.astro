@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { mailto } from '../site';
+---
+<Base description="Agile training and coaching services. Deliver value to your customers faster, with fewer headaches and of higher quality.">
+  <section class="hero">
+    <img src="/images/08bb11-recurvise-loop-homepage-web-res-v2.jpg" alt="" fetchpriority="high" />
+    <div class="wrap hero-inner">
+      <h1>Together, we’ll ignite a spark, unbridling your organisation’s creativity and potential.</h1>
+      <p class="lede">Deliver value to your customers faster, with fewer headaches and of higher quality with our agile training and services.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">New course</p>
+      <h2>We have just released a new course! Agile Team Facilitation (ICP-ATF)</h2>
+      <p class="prose">Talk to us about attending one of our upcoming public classes, or arranging a private class should you prefer a more customised experience.</p>
+      <p class="prose">Super-charge your meetings in just one day. Our brand-new, ICAgile-certified workshop fuses the Watkins Let’s Go Model® with Martin Kearns’ world-class facilitation leadership to give you practical tools for instantly better collaboration. No prerequisites—perfect for anyone who plans, leads or participates in team sessions. Walk away with globally recognised certification and a proven framework to turn every meeting into a high-impact, outcome-driven conversation.</p>
+      <p class="prose"><strong>Ready to elevate your facilitation game?</strong></p>
+      <a class="btn" href={mailto('Agile Team Facilitation enquiry')}>Be in touch</a>
+    </div>
+  </section>
+
+  <section class="section light">
+    <div class="wrap row">
+      <img src="/images/25be6f-recursive-loop-gen-image-home.jpg" alt="Workshop participants collaborating around a table" loading="lazy" />
+      <div>
+        <h2>Agile services</h2>
+        <p>Through our agile services, your teams are empowered to adjust to changing requirements nimbly and efficiently, all while ensuring continuous delivery flow. Our services promote the reduction of technical debt, enhancement of customer satisfaction, and delivery of top-notch products.</p>
+        <p>Explore our Re:Agile training classes.</p>
+        <a class="btn" href="/classes">Let’s go</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap row">
+      <div>
+        <h2>Stay up to date</h2>
+        <p class="lede">Sign up for Re:Agile News</p>
+        <Newsletter />
+      </div>
+      <img src="/images/11fe58-recurvise-loop-signup-web-res.jpg" alt="" loading="lazy" />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { position: relative; background: var(--dark); color: var(--white); min-height: 520px; display: flex; align-items: center; }
+  .hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .55; }
+  .hero-inner { position: relative; padding-top: clamp(64px, 10vw, 140px); padding-bottom: clamp(64px, 10vw, 140px); }
+  .hero h1 { max-width: 14em; }
+  .hero .lede { max-width: 34em; }
+  .eyebrow { font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: .6em; }
+  .dark :global(.field input) { border-color: #3a3936; background: #1a1917; color: var(--dark-ink); }
+</style>
