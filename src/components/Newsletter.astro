@@ -1,8 +1,13 @@
 ---
 import { site } from '../site';
+const configured = site.buttondownUser && !site.buttondownUser.startsWith('YOUR_');
 const action = `https://buttondown.com/api/emails/embed-subscribe/${site.buttondownUser}`;
+const subject = encodeURIComponent('Sign me up for Re:Agile News');
 ---
-<form class="newsletter" action={action} method="post" target="_blank">
+{!configured && (
+  <p><a class="btn" href={`mailto:${site.email}?subject=${subject}`}>Email to sign up</a></p>
+)}
+<form class="newsletter" action={action} method="post" target="_blank" hidden={!configured}>
   <div class="grid-2">
     <div class="field">
       <label for="nl-first">First Name</label>

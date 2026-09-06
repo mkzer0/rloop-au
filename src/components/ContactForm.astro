@@ -1,9 +1,18 @@
 ---
 import { site } from '../site';
+const configured = site.formspreeId && !site.formspreeId.startsWith('YOUR_');
 const action = `https://formspree.io/f/${site.formspreeId}`;
 const next = `${site.url}/thanks`;
+const subject = encodeURIComponent('Book a Chat');
 ---
-<form class="contact" action={action} method="post">
+{!configured && (
+  <div class="fallback">
+    <p class="lede">Email us and we’ll reply within three business days.</p>
+    <p><a class="btn" href={`mailto:${site.email}?subject=${subject}`}>Email {site.email}</a></p>
+    <p class="muted">Tell us your name, what you’d like to talk about, and whether it’s coaching, training or facilitation.</p>
+  </div>
+)}
+<form class="contact" action={action} method="post" hidden={!configured}>
   <input type="hidden" name="_subject" value="Book a Chat enquiry from recursiveloop.com.au" />
   <input type="hidden" name="_next" value={next} />
   <label class="hp" aria-hidden="true">Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
