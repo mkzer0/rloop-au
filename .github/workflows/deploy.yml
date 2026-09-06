@@ -28,6 +28,22 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+      # Until the custom domain is live the site is served under
+      # https://mkzer0.github.io/recursive-loop, so root-relative URLs need
+      # that prefix. Set the repository variable PAGES_BASE to /recursive-loop
+      # for the preview stage and delete it once www.recursiveloop.com.au is
+      # configured as the custom domain.
+      - name: Prefix root-relative URLs for sub-path preview
+        if: vars.PAGES_BASE != ''
+        env:
+          BASE: ${{ vars.PAGES_BASE }}
+        run: |
+          find dist -type f \( -name '*.html' -o -name '*.css' -o -name '*.xml' \) -print0 \
+            | xargs -0 sed -i -E \
+                -e "s#((href|src|content)=[\"'])/([^/\"'])#\1${BASE}/\3#g" \
+                -e "s#((href|src)=[\"'])/([\"'])#\1${BASE}/\3#g" \
+                -e "s#(url=)/([\"'>])#\1${BASE}/\2#g" \
+                -e "s#(url\()/#\1${BASE}/#g"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
