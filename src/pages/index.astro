@@ -14,12 +14,20 @@ import { mailto } from '../site';
 
   <section class="section">
     <div class="wrap">
-      <p class="eyebrow">New course</p>
-      <h2>We have just released a new course! Agile Team Facilitation (ICP-ATF)</h2>
-      <p class="prose">Talk to us about attending one of our upcoming public classes, or arranging a private class should you prefer a more customised experience.</p>
-      <p class="prose">Super-charge your meetings in just one day. Our brand-new, ICAgile-certified workshop fuses the Watkins Let’s Go Model® with Martin Kearns’ world-class facilitation leadership to give you practical tools for instantly better collaboration. No prerequisites—perfect for anyone who plans, leads or participates in team sessions. Walk away with globally recognised certification and a proven framework to turn every meeting into a high-impact, outcome-driven conversation.</p>
-      <p class="prose"><strong>Ready to elevate your facilitation game?</strong></p>
-      <a class="btn" href={mailto('Agile Team Facilitation enquiry')}>Be in touch</a>
+      <p class="eyebrow">Flow insights</p>
+      <h2>See how work really moves through your organisation.</h2>
+      <p class="lede prose">Most organisations can see what goes in and what comes out, but not the machine in between. That is where capacity disappears.</p>
+      <p class="prose">We build custom insights solutions from the delivery data you already produce, so leaders can see where work waits, what that waiting costs, and which change would move it most. No new platform to adopt, and no scorecard on your people: we model the system, not the individuals in it.</p>
+      <ul class="methods">
+        <li><strong>Flow metrics, read as signals.</strong> Lead time, waiting time, work in progress and predictability, drawn from the tools you already use and read as diagnostic signals rather than targets.</li>
+        <li><strong>Measurement that reduces uncertainty.</strong> We measure only what would change a decision. Small samples, calibrated estimates and Bayesian updating tell you more than a dashboard full of vanity metrics.</li>
+        <li><strong>Forecasts you can defend.</strong> Delivery forecasts built from your own history, with the uncertainty stated plainly instead of hidden behind a single date.</li>
+        <li><strong>Dependencies and flow economics.</strong> Where work queues against shared teams, and what that delay costs in capacity, so interventions can be ranked by leverage before budget is committed.</li>
+      </ul>
+      <p class="actions">
+        <a class="btn" href={mailto('Flow insights enquiry')}>Talk to us about flow insights</a>
+        <a class="textlink" href="/insights">Read our thinking on measurement</a>
+      </p>
     </div>
   </section>
 
@@ -54,5 +62,11 @@ import { mailto } from '../site';
   .hero h1 { max-width: 14em; }
   .hero .lede { max-width: 34em; }
   .eyebrow { font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: .6em; }
+  .methods { list-style: none; padding: 0; margin: 1.6em 0 2em; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px 40px; }
+  .methods li { margin: 0; padding-top: 14px; border-top: 2px solid var(--line); font-size: .98rem; }
+  .methods strong { display: block; margin-bottom: .25em; }
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }
+  .textlink { font-weight: 500; text-decoration: none; border-bottom: 2px solid var(--ink); }
+  .textlink:hover { color: var(--accent); border-color: var(--accent); }
   .dark :global(.field input) { border-color: #3a3936; background: #1a1917; color: var(--dark-ink); }
 </style>
