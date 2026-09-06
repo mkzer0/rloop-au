@@ -88,7 +88,8 @@ const subject = encodeURIComponent('Book a Chat');
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data?.errors?.map((e: { message: string }) => e.message).join(' ') || `Request failed (${res.status})`);
+        const detail = data?.errors?.map((e: { message: string }) => e.message).join(' ') || data?.error;
+        throw new Error(detail || `Request failed (${res.status})`);
       }
       form.hidden = true;
       thanks!.hidden = false;
