@@ -3,7 +3,7 @@ export const site = {
   name: 'Recursive Loop',
   tagline: 'Agile training and coaching services',
   url: 'https://www.recursiveloop.com.au',
-  email: 'mick@recursiveloop.com.au',
+  email: 'info@recursiveloop.com.au',
   location: 'Adelaide, South Australia',
   analyticsId: 'G-6SB1NT3BG4',
   /** Formspree form id. Create a form at https://formspree.io and paste its id here. */
